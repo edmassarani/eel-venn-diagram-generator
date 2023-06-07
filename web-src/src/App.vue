@@ -1,20 +1,12 @@
 <script setup>
 import { ref } from 'vue';
-const greeting = ref('');
+import StepOne from './components/step-one/index.vue';
 
-const update_greeting = (_greeting) => {
-  greeting.value = _greeting;
-};
-const click = () => {
-  eel.get_greeting('user')(update_greeting);
-  eel.hello_world();
-  console.log('clicked');
-};
+const step = ref(1);
 </script>
 
 <template>
-  <div>
-    <p class="text-red-500 text-4xl">{{ greeting }}</p>
-    <button type="button" @click="click()">Click me</button>
+  <div class="p-4">
+    <StepOne v-if="step === 1" />
   </div>
 </template>

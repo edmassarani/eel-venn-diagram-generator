@@ -12,4 +12,4 @@ def get_greeting(string):
 
 
 eel.init("web")
-eel.start("index.html")
+eel.start("index.html", port=0)
