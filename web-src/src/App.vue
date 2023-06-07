@@ -1,20 +1,20 @@
 <script setup>
 import { ref } from 'vue';
-const greeting = ref("")
+const greeting = ref('');
 
 const update_greeting = (_greeting) => {
-  greeting.value = _greeting
-}
+  greeting.value = _greeting;
+};
 const click = () => {
-  eel.get_greeting("user")(update_greeting)
-  eel.hello_world()
-  console.log("clicked")
-}
+  eel.get_greeting('user')(update_greeting);
+  eel.hello_world();
+  console.log('clicked');
+};
 </script>
 
 <template>
   <div>
-    <p>{{ greeting }}</p>
+    <p class="text-red-500 text-4xl">{{ greeting }}</p>
     <button type="button" @click="click()">Click me</button>
   </div>
 </template>
