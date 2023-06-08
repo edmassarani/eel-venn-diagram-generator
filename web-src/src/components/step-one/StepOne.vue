@@ -1,13 +1,13 @@
 <script setup>
-import PageTitle from '../utils/PageTitle.vue';
-import DataSourceInput from './DataSourceInput.vue';
+import PageTitle from '../utils/PageTitle.vue'
+import DataSourceInput from './DataSourceInput.vue'
 
-const props = defineProps({
+defineProps({
   sourceCount: {
     type: Number,
     required: true,
   },
-});
+})
 </script>
 
 <template>

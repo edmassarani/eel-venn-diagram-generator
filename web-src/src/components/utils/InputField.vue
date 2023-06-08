@@ -1,5 +1,5 @@
 <script setup>
-const props = defineProps({
+defineProps({
   hasLabel: {
     type: Boolean,
     default: true,
@@ -15,7 +15,7 @@ const props = defineProps({
   },
 
   required: Boolean,
-});
+})
 </script>
 
 <template>
@@ -27,7 +27,7 @@ const props = defineProps({
 
       <input
         :type="type"
-        class="border border-gray-600 rounded w-full p-1"
+        class="w-full rounded border border-gray-600 p-1"
         v-bind="$attrs"
       />
     </label>

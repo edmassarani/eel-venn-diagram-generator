@@ -1,26 +1,26 @@
 <script setup>
-import Input from '../utils/Input.vue';
+import InputField from '../utils/InputField.vue'
 
-const props = defineProps({
+defineProps({
   index: {
     type: Number,
     required: true,
   },
-});
+})
 </script>
 
 <template>
-  <div class="bg-gray-200 p-4 mb-4 rounded">
-    <h4 class="text-xl font-bold mb-2">Data Source {{ index }}</h4>
+  <div class="mb-4 rounded bg-gray-200 p-4">
+    <h4 class="mb-2 text-xl font-bold">Data Source {{ index }}</h4>
 
     <div class="pl-2">
-      <Input
+      <InputField
         label="Source Name"
         class="mb-1"
         placeholder="Enter a name for this source"
         required
       />
-      <Input
+      <InputField
         label="Source File"
         type="file"
         class="border-0"

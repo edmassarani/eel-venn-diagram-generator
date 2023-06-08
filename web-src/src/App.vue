@@ -1,9 +1,9 @@
 <script setup>
-import { ref } from 'vue';
-import StepOne from './components/step-one/index.vue';
+import { ref } from 'vue'
+import StepOne from './components/step-one/StepOne.vue'
 
-const step = ref(1);
-const sourceCount = ref(3);
+const step = ref(1)
+const sourceCount = ref(3)
 </script>
 
 <template>
