@@ -1,14 +1,15 @@
 import eel
+from tkinter import filedialog
+from tkinter import *
 
 
 @eel.expose
-def hello_world():
-    print("Hello from python")
-
-
-@eel.expose
-def get_greeting(string):
-    return f"hello {string}"
+def get_file_path():
+    root = Tk()
+    root.withdraw()
+    root.wm_attributes('-topmost', 1)
+    path = filedialog.askopenfilename(filetypes=[('CSV File', '*.csv')])
+    return path
 
 
 eel.init("web")

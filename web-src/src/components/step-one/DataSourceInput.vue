@@ -25,20 +25,20 @@ const name = computed({
   }, 200),
 })
 
-const file = computed({
-  get() {
-    return store.sources[props.index].name
-  },
-  set(value) {
-    store.setSourceFile(props.index, value)
-  },
-})
+const file = computed(() => store.sources[props.index].file)
 
 const removeSource = () => {
   store.removeSource(props.index)
 }
 
 const { isAtMinCapacity } = storeToRefs(store)
+
+const getFilePath = async (e) => {
+  // eslint-disable-next-line no-undef
+  const path = await eel.get_file_path()()
+
+  store.setSourceFile(props.index, path)
+}
 </script>
 
 <template>
@@ -54,25 +54,39 @@ const { isAtMinCapacity } = storeToRefs(store)
         :tabindex="1"
         required
       />
-      <InputField
-        label="Source File"
-        type="file"
-        class="border-0 pl-0"
-        accept="text/csv"
-        :tabindex="1"
-        required
-        @update:model-value="file = $event"
-      />
+      <div class="flex items-center">
+        <div class="relative mr-2 mt-2">
+          <input
+            type="button"
+            class="rounded border border-gray-500 p-1"
+            value="Select file"
+            :tabindex="1"
+            required
+            @click="getFilePath"
+          />
+          <input
+            type="text"
+            name="file"
+            :value="file"
+            required
+            class="absolute inset-x-1/2 bottom-0 h-px w-px opacity-0"
+            tabindex="-1"
+            @keypress.prevent="false"
+          />
+        </div>
+        <p>{{ file }}</p>
+      </div>
     </div>
 
     <button
+      v-if="!isAtMinCapacity"
       type="button"
       class="absolute right-2 top-2"
       title="Remove data source"
       tabindex="2"
       @click="removeSource"
     >
-      <svg-icon v-if="!isAtMinCapacity" type="mdi" :path="mdiClose"></svg-icon>
+      <svg-icon type="mdi" :path="mdiClose"></svg-icon>
     </button>
   </div>
 </template>
