@@ -1,4 +1,6 @@
 <script setup>
+import { mdiArrowRightBoldOutline, mdiArrowLeftBoldOutline } from '@mdi/js'
+import SvgIcon from '@jamescoyle/vue-icon'
 import { storeToRefs } from 'pinia'
 import { useSourceStore } from '@/stores/SourceStore'
 import StepOne from './components/step-one/StepOne.vue'
@@ -24,7 +26,9 @@ const goBack = () => {
   >
     <StepOne v-if="step === 0" :source-count="sourceCount" />
 
-    <text-button type="submit">Continue</text-button>
-    <text-button v-if="step > 0" @click="goBack">Go Back</text-button>
+    <text-button type="submit"> Continue </text-button>
+    <text-button v-if="step > 0" class="mt-2" @click="goBack">
+      Go Back
+    </text-button>
   </form>
 </template>

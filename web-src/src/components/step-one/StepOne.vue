@@ -1,4 +1,6 @@
 <script setup>
+import { mdiPlus } from '@mdi/js'
+import SvgIcon from '@jamescoyle/vue-icon'
 import PageTitle from '@utils/PageTitle.vue'
 import DataSourceInput from './DataSourceInput.vue'
 import { useSourceStore } from '@/stores/SourceStore'
@@ -38,8 +40,13 @@ const addSource = (e) => {
       />
     </div>
 
-    <text-button v-if="!isAtMaxCapacity" class="mb-2" @click="addSource">
-      Add Source
+    <text-button
+      v-if="!isAtMaxCapacity"
+      class="mb-2 flex items-center justify-center"
+      @click="addSource"
+    >
+      <svg-icon type="mdi" :path="mdiPlus"></svg-icon>
+      <span>Add Source</span>
     </text-button>
   </div>
 </template>

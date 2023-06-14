@@ -58,7 +58,7 @@ const removeSource = () => {
         <div class="relative mr-2 mt-2">
           <input
             type="button"
-            class="rounded border border-gray-500 p-1"
+            class="cursor-pointer rounded border border-gray-500 p-1"
             value="Select file"
             :tabindex="1"
             required
