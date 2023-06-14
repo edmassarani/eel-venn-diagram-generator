@@ -8,11 +8,11 @@ const store = useSourceStore()
 
 const { sourceCount, step } = storeToRefs(store)
 
-const proceed = (e) => {
+const proceed = () => {
   store.advanceStep()
 }
 
-const goBack = (e) => {
+const goBack = () => {
   store.retreatStep()
 }
 </script>
@@ -24,7 +24,7 @@ const goBack = (e) => {
   >
     <StepOne v-if="step === 0" :source-count="sourceCount" />
 
-    <text-button type="submit"> Continue </text-button>
-    <text-button v-if="step > 0" @click="goBack"> Go Back </text-button>
+    <text-button type="submit">Continue</text-button>
+    <text-button v-if="step > 0" @click="goBack">Go Back</text-button>
   </form>
 </template>

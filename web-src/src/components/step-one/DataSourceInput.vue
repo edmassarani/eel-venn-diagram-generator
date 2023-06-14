@@ -16,6 +16,8 @@ const props = defineProps({
 
 const store = useSourceStore()
 
+const { isAtMinCapacity } = storeToRefs(store)
+
 const name = computed({
   get() {
     return store.sources[props.index].name
@@ -27,17 +29,15 @@ const name = computed({
 
 const file = computed(() => store.sources[props.index].file)
 
-const removeSource = () => {
-  store.removeSource(props.index)
-}
-
-const { isAtMinCapacity } = storeToRefs(store)
-
-const getFilePath = async (e) => {
+const getFilePath = async () => {
   // eslint-disable-next-line no-undef
   const path = await eel.get_file_path()()
 
   store.setSourceFile(props.index, path)
+}
+
+const removeSource = () => {
+  store.removeSource(props.index)
 }
 </script>
 
