@@ -5,31 +5,48 @@ defineProps({
     default: true,
   },
 
-  label: String,
+  label: {
+    type: String,
+    default: '',
+  },
 
-  labelClass: String,
+  labelClass: {
+    type: String,
+    default: '',
+  },
 
   type: {
     type: String,
     default: 'text',
   },
 
-  required: Boolean,
+  tabindex: {
+    type: Number,
+    default: 0,
+  },
+
+  modelValue: {
+    type: String,
+    default: '',
+  },
 })
+
+defineEmits(['update:modelValue'])
 </script>
 
 <template>
-  <div>
-    <label v-if="hasLabel" :class="labelClass">
-      <span class="block">
-        {{ label }}
-      </span>
+  <label v-if="hasLabel" :class="labelClass">
+    <span class="block">
+      {{ label }}
+    </span>
 
-      <input
-        :type="type"
-        class="w-full rounded border border-gray-600 p-1"
-        v-bind="$attrs"
-      />
-    </label>
-  </div>
+    <input
+      :value="modelValue"
+      :type="type"
+      class="w-full rounded border border-gray-600 p-1"
+      :tabindex="tabindex"
+      v-bind="$attrs"
+      @input="$emit('update:modelValue', $event.target.value)"
+    />
+  </label>
 </template>

@@ -5,8 +5,9 @@ module.exports = {
   },
   extends: [
     'standard-with-typescript',
-    'plugin:vue/vue3-essential',
+    'plugin:vue/vue3-recommended',
     'plugin:tailwindcss/recommended',
+    'prettier',
   ],
   parserOptions: {
     ecmaVersion: 'latest',
@@ -15,5 +16,6 @@ module.exports = {
   plugins: ['vue'],
   rules: {
     'comma-dangle': ['error', 'always-multiline'],
+    'space-before-function-paren': 0,
   },
-};
+}

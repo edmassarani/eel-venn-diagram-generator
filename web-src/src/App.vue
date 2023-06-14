@@ -1,13 +1,30 @@
 <script setup>
-import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useSourceStore } from '@/stores/SourceStore'
 import StepOne from './components/step-one/StepOne.vue'
+import TextButton from '@utils/TextButton.vue'
 
-const step = ref(1)
-const sourceCount = ref(3)
+const store = useSourceStore()
+
+const { sourceCount, step } = storeToRefs(store)
+
+const proceed = (e) => {
+  store.advanceStep()
+}
+
+const goBack = (e) => {
+  store.retreatStep()
+}
 </script>
 
 <template>
-  <div class="p-4">
-    <StepOne v-if="step === 1" :source-count="sourceCount" />
-  </div>
+  <form
+    class="flex max-h-screen flex-col overflow-hidden p-4"
+    @submit.prevent="proceed"
+  >
+    <StepOne v-if="step === 0" :source-count="sourceCount" />
+
+    <text-button type="submit"> Continue </text-button>
+    <text-button v-if="step > 0" @click="goBack"> Go Back </text-button>
+  </form>
 </template>
