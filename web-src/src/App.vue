@@ -1,6 +1,4 @@
 <script setup>
-import { mdiArrowRightBoldOutline, mdiArrowLeftBoldOutline } from '@mdi/js'
-import SvgIcon from '@jamescoyle/vue-icon'
 import { storeToRefs } from 'pinia'
 import { useSourceStore } from '@/stores/SourceStore'
 import StepOne from './components/step-one/StepOne.vue'
