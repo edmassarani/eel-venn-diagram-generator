@@ -10,6 +10,7 @@ export const useSourceStore = defineStore('sources', {
     minCount: 2,
     maxCount: 6,
     step: 0,
+    loading: false,
   }),
 
   getters: {

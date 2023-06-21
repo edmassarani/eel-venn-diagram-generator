@@ -1,7 +1,6 @@
 <script setup>
 import { storeToRefs } from 'pinia'
-import { watch } from 'vue'
-import { mdiCheckCircleOutline } from '@mdi/js'
+import { mdiCheckCircleOutline, mdiLoading } from '@mdi/js'
 import SvgIcon from '@jamescoyle/vue-icon'
 import { useSourceStore } from '@/stores/SourceStore'
 import StepOne from './components/step-one/StepOne.vue'
@@ -10,10 +9,49 @@ import TextButton from '@utils/TextButton.vue'
 
 const store = useSourceStore()
 
-const { step, sources, destinationPath } = storeToRefs(store)
+const { step, sources, destinationPath, loading } = storeToRefs(store)
 
-const proceed = () => {
+const proceed = async () => {
+  loading.value = true
+  // trigger functions on step increase (starts at 0)
+  switch (step.value) {
+    case 0: {
+      // eslint-disable-next-line no-undef
+      const res = await eel.parse_csv_files(sources.value)()
+
+      if (!res.result) {
+        alert(res.error)
+        return
+      } else {
+        sources.value.forEach((source) => {
+          source.columns = res.data[source.name].columns
+        })
+      }
+
+      break
+    }
+
+    case 1: {
+      // eslint-disable-next-line no-undef
+      const res = await eel.generate_diagram(
+        sources.value,
+        destinationPath.value
+      )()
+
+      if (!res.result) {
+        alert(res.error)
+        return
+      }
+
+      break
+    }
+
+    default:
+      break
+  }
+
   store.advanceStep()
+  loading.value = false
 }
 
 const goBack = () => {
@@ -23,44 +61,6 @@ const goBack = () => {
 const resetStore = () => {
   store.$reset()
 }
-
-watch(step, async (newStep, oldStep) => {
-  if (oldStep < newStep) {
-    // trigger functions on step increase (starts at 0)
-    switch (newStep) {
-      case 1: {
-        // eslint-disable-next-line no-undef
-        const res = await eel.parse_csv_files(sources.value)()
-
-        if (!res.result) {
-          alert(res.error)
-          goBack()
-        } else {
-          sources.value.forEach((source) => {
-            source.columns = res.data[source.name].columns
-          })
-        }
-
-        break
-      }
-
-      case 2: {
-        // eslint-disable-next-line no-undef
-        const res = await eel.generate_diagram(sources.value, destinationPath)()
-
-        if (!res.result) {
-          goBack()
-          alert(res.error)
-        }
-
-        break
-      }
-
-      default:
-        break
-    }
-  }
-})
 </script>
 
 <template>
@@ -92,4 +92,15 @@ watch(step, async (newStep, oldStep) => {
       Restart
     </text-button>
   </form>
+  <div
+    v-if="loading"
+    class="absolute left-0 top-0 z-10 flex h-full w-full items-center justify-center bg-gray-300/70"
+  >
+    <svg-icon
+      type="mdi"
+      :path="mdiLoading"
+      size="100"
+      class="animate-spin text-gray-600"
+    ></svg-icon>
+  </div>
 </template>
