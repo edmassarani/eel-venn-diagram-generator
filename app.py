@@ -7,6 +7,7 @@ from matplotlib_venn import venn3, venn2
 from venn import venn
 
 sources_dict = {}
+sources_df = {}
 
 
 @eel.expose
@@ -25,7 +26,8 @@ def parse_csv_files(sources):
         try:
             df = pd.read_csv(file, sep=None)
             cols = list(df.columns)
-            sources_dict[name] = {'file': file, 'df': df, 'columns': cols}
+            sources_dict[name] = {'file': file, 'columns': cols}
+            sources_df[name] = df
 
         except Exception as e:
             print(f'There was an error parsing the file at: {file}')

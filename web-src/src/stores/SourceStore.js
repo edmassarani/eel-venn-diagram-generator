@@ -52,6 +52,10 @@ export const useSourceStore = defineStore('sources', {
       this.sources[index].file = file
     },
 
+    setSourcePivotColumn(index, column) {
+      this.sources[index].pivotColumn = column
+    },
+
     advanceStep() {
       this.step++
     },

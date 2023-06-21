@@ -2,12 +2,13 @@
 import { storeToRefs } from 'pinia'
 import { useSourceStore } from '@/stores/SourceStore'
 import StepOne from './components/step-one/StepOne.vue'
+import StepTwo from './components/step-two/StepTwo.vue'
 import TextButton from '@utils/TextButton.vue'
 import { watch } from 'vue'
 
 const store = useSourceStore()
 
-const { sourceCount, step, sources } = storeToRefs(store)
+const { step, sources } = storeToRefs(store)
 
 const proceed = () => {
   store.advanceStep()
@@ -48,7 +49,8 @@ watch(step, async (newStep, oldStep) => {
     class="flex max-h-screen flex-col overflow-hidden p-4"
     @submit.prevent="proceed"
   >
-    <StepOne v-if="step === 0" :source-count="sourceCount" />
+    <StepOne v-if="step === 0" />
+    <StepTwo v-else-if="step === 1" />
 
     <text-button type="submit"> Continue </text-button>
     <text-button v-if="step > 0" class="mt-2" @click="goBack">

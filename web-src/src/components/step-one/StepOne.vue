@@ -7,16 +7,9 @@ import { useSourceStore } from '@/stores/SourceStore'
 import TextButton from '@utils/TextButton.vue'
 import { storeToRefs } from 'pinia'
 
-defineProps({
-  sourceCount: {
-    type: Number,
-    required: true,
-  },
-})
-
 const store = useSourceStore()
 
-const { isAtMaxCapacity } = storeToRefs(store)
+const { isAtMaxCapacity, sourceCount } = storeToRefs(store)
 
 const addSource = (e) => {
   store.addSource()

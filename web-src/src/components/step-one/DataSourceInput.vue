@@ -1,7 +1,7 @@
 <script setup>
 import { mdiClose } from '@mdi/js'
 import SvgIcon from '@jamescoyle/vue-icon'
-import InputField from '../utils/InputField.vue'
+import InputField from '@utils/InputField.vue'
 import { useSourceStore } from '@/stores/SourceStore'
 import { computed } from 'vue'
 import { debounce } from 'lodash'
