@@ -8,7 +8,7 @@ import { watch } from 'vue'
 
 const store = useSourceStore()
 
-const { step, sources } = storeToRefs(store)
+const { step, sources, destinationPath } = storeToRefs(store)
 
 const proceed = () => {
   store.advanceStep()
@@ -28,6 +28,26 @@ watch(step, async (newStep, oldStep) => {
 
         if (!res.result) {
           alert(res.error)
+          goBack()
+        } else {
+          sources.value.forEach((source) => {
+            source.columns = res.data[source.name].columns
+          })
+        }
+
+        break
+      }
+
+      case 2: {
+        // eslint-disable-next-line no-undef
+        const res = await eel.generate_diagrams(
+          sources.value,
+          destinationPath
+        )()
+
+        if (!res.result) {
+          alert(res.error)
+          goBack()
         } else {
           sources.value.forEach((source) => {
             source.columns = res.data[source.name].columns

@@ -14,8 +14,5 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['vue'],
-  rules: {
-    'comma-dangle': ['error', 'always-multiline'],
-    'space-before-function-paren': 0,
-  },
+  rules: {},
 }

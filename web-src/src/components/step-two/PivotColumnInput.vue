@@ -17,7 +17,7 @@ const columns = computed(() => store.sources[props.index].columns ?? [])
 
 const pivotColumn = computed({
   get() {
-    return store.sources[props.index].pivotColumn ?? null
+    return store.sources[props.index].pivot ?? null
   },
   set: (value) => {
     store.setSourcePivotColumn(props.index, value)
@@ -35,6 +35,7 @@ const pivotColumn = computed({
         label="Pivot Column"
         class="mb-1"
         :tabindex="1"
+        placeholder="Select a column from this data source"
         :options="columns"
         required
       />

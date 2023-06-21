@@ -6,6 +6,7 @@ export const useSourceStore = defineStore('sources', {
       { name: '', file: '' },
       { name: '', file: '' },
     ],
+    destinationPath: '',
     minCount: 2,
     maxCount: 6,
     step: 0,
@@ -53,7 +54,11 @@ export const useSourceStore = defineStore('sources', {
     },
 
     setSourcePivotColumn(index, column) {
-      this.sources[index].pivotColumn = column
+      this.sources[index].pivot = column
+    },
+
+    setDestinationPath(path) {
+      this.destinationPath = path
     },
 
     advanceStep() {
