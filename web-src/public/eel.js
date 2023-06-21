@@ -18,7 +18,7 @@ class Eel {
     }
   }
 
-  generate_diagrams(sources, destination) {
+  generate_diagram(sources, destination) {
     return () => {
       return { result: true, data: null }
     }
