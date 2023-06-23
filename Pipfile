@@ -5,12 +5,11 @@ name = "pypi"
 
 [packages]
 eel = "*"
-pyinstaller = "*"
 pandas = "*"
 matplotlib = "*"
-numpy = "*"
 matplotlib-venn = "*"
 venn = "*"
+pyinstaller = "*"
 
 [dev-packages]
 

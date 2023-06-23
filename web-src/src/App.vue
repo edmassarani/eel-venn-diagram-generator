@@ -21,6 +21,7 @@ const proceed = async () => {
 
       if (!res.result) {
         alert(res.error)
+        loading.value = false
         return
       } else {
         sources.value.forEach((source) => {
@@ -40,6 +41,7 @@ const proceed = async () => {
 
       if (!res.result) {
         alert(res.error)
+        loading.value = false
         return
       }
 
