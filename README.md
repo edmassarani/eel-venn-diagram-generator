@@ -1,11 +1,9 @@
-# Vue starter project for Eel
+# Pyhon + JS (~Electron) app
 
-This is a basic [eel](https://github.com/python-eel/Eel) + [VUE.js 3](https://vuejs.org/) + [VITE](https://vitejs.dev/). It will create a local app with python as backend and VITE+VUE3 as front-end.
-It is not unlike electron
+This is a basic [eel](https://github.com/python-eel/Eel) + [VUE.js 3](https://vuejs.org/) + [VITE](https://vitejs.dev/) project. It will create a local app with python as backend and VITE+VUE3 as front-end.
+It is not unlike electron.
 
-## Start a new app
-
-Copy this repo and you are ready to start.
+This was developed from this [start-up repo](https://github.com/wagenrace/VUE3-VITE-eel-starter)
 
 ### Installation
 
@@ -25,8 +23,6 @@ npm run dev
 ```
 
 With in `web-src\public\eel.js` there is a mock-up eel implementation. This file will be overwritten when building.
-It holds 2 example functions `hello_world` and `get_greeting`.
-`get_greeting` has also the callback logic.
 These are just for testing so you can quickly develop the front-end like you would with every VUE app.
 
 ### Build front-end
@@ -60,27 +56,3 @@ cd ..
 pip install pyinstaller
 python -m eel app.py web --onefile
 ```
-
-## Update your current project
-
-Within `index.html` add:
-
-```html
-<script type=text/javascript src=/eel.js></script>
-```
-
-In `vite.config.js` add a `build - outDir`
-
-```js
-export default defineConfig({
-  plugins: [vue()],
-  build: {
-    outDir: "../web",
-  },
-});
-```
-
-### eel.js debugger [Optional]
-
-Copy the `public/eel.js` into your public folder.
-This script creates a mockup eel so you can test your VUE app without building or running the eel app.
