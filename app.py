@@ -1,3 +1,5 @@
+print('Loading libraries...')
+
 import eel
 from tkinter import filedialog
 from tkinter import *
@@ -5,6 +7,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib_venn import venn3, venn2
 from venn import venn
+import sys
+import platform
+import logging
 
 
 @eel.expose
@@ -32,7 +37,8 @@ def parse_csv_files(sources):
     sources_dict = {}
 
     if len(sources) < 2 or len(sources) > 6:
-        print(f'Invalid number of sources. Must provide 2-6 sources.')
+        logging.exception(
+            f'Invalid number of sources. Must provide 2-6 sources.')
         return {'result': False, 'error': f'Invalid number of sources. {len(sources)} provided (Min: 2, Max: 6)'}
 
     for source in sources:
@@ -45,8 +51,8 @@ def parse_csv_files(sources):
             sources_dict[name] = {'file': file, 'columns': cols}
 
         except Exception as e:
-            print(f'There was an error parsing the file at: {file}')
-            print(f'ERROR: {str(e)}')
+            logging.exception(
+                f'There was an error parsing the file at: {file}')
             return {'result': False, 'error': str(e)}
 
     return {'result': True, 'data': sources_dict}
@@ -57,7 +63,8 @@ def generate_diagram(sources, destination):
     plt.clf()
 
     if len(sources) < 2 or len(sources) > 6:
-        print(f'Invalid number of sources. Must provide 2-6 sources.')
+        logging.exception(
+            f'Invalid number of sources. Must provide 2-6 sources.')
         return {'result': False, 'error': f'Invalid number of sources. {len(sources)} provided (Min: 2, Max: 6)'}
 
     try:
@@ -72,7 +79,7 @@ def generate_diagram(sources, destination):
             file = source['file']
 
             df = pd.read_csv(file, sep=None, engine='python')
-            pivot_set = set(df[pivot].dropna())
+            pivot_set = set(df[pivot].astype(str).str.lower().dropna())
             all_sources_set = all_sources_set.union(pivot_set)
             sets[name] = pivot_set
             dfs[name] = df
@@ -109,10 +116,21 @@ def generate_diagram(sources, destination):
 
         return {'result': True, 'data': None}
     except Exception as e:
-        print(f'There was an error generating the diagram.')
-        print(f'ERROR: {repr(e)}')
+        logging.exception(f'There was an error generating the diagram.')
         return {'result': False, 'error': str(e)}
 
 
+print('Starting local server...')
 eel.init("web")
-eel.start("index.html", port=0)
+print('Loading application...')
+
+try:
+    eel.start("index.html", port=0)
+except EnvironmentError:
+    # If Chrome isn't found, fallback to Microsoft Edge on Win10 or greater
+    if sys.platform in ['win32', 'win64'] and int(platform.release()) >= 10:
+        eel.start('index.html', mode='edge', port=0)
+    else:
+        raise
+
+print('App is ready for use')
