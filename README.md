@@ -54,5 +54,5 @@ cd web-src
 npm run build
 cd ..
 pip install pyinstaller
-python -m eel app.py web --onefile
+python -m eel app.py web --onefile --noconsole
 ```
