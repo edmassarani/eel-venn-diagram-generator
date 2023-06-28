@@ -9,7 +9,8 @@ import TextButton from '@utils/TextButton.vue'
 
 const store = useSourceStore()
 
-const { step, sources, destinationPath, loading } = storeToRefs(store)
+const { step, sources, destinationPath, loading, usingFileSelector } =
+  storeToRefs(store)
 
 const proceed = async () => {
   loading.value = true
@@ -95,8 +96,8 @@ const resetStore = () => {
     </text-button>
   </form>
   <div
-    v-if="loading"
-    class="absolute left-0 top-0 z-10 flex h-full w-full items-center justify-center bg-gray-300/70"
+    v-if="loading || usingFileSelector"
+    class="absolute left-0 top-0 z-10 flex h-full w-full flex-col items-center justify-center bg-gray-300/70"
   >
     <svg-icon
       type="mdi"
@@ -104,5 +105,9 @@ const resetStore = () => {
       size="100"
       class="animate-spin text-gray-600"
     ></svg-icon>
+
+    <span v-if="usingFileSelector" class="mt-4">
+      Select file or close file selector to continue
+    </span>
   </div>
 </template>

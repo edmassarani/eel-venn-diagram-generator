@@ -6,13 +6,17 @@ import { storeToRefs } from 'pinia'
 
 const store = useSourceStore()
 
-const { sourceCount, destinationPath } = storeToRefs(store)
+const { sourceCount, destinationPath, usingFileSelector } = storeToRefs(store)
 
 const getFolderPath = async () => {
+  store.setUsingFileSelector(true)
+
   // eslint-disable-next-line no-undef
   const path = await eel.get_folder_path()()
 
   store.setDestinationPath(path)
+
+  store.setUsingFileSelector(false)
 }
 </script>
 
@@ -44,6 +48,7 @@ const getFolderPath = async () => {
               value="Select destination folder"
               :tabindex="1"
               required
+              :disabled="usingFileSelector"
               @click="getFolderPath"
             />
             <input

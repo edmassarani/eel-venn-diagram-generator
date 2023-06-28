@@ -16,7 +16,7 @@ const props = defineProps({
 
 const store = useSourceStore()
 
-const { isAtMinCapacity } = storeToRefs(store)
+const { isAtMinCapacity, usingFileSelector } = storeToRefs(store)
 
 const name = computed({
   get() {
@@ -30,10 +30,12 @@ const name = computed({
 const file = computed(() => store.sources[props.index].file)
 
 const getFilePath = async () => {
+  store.setUsingFileSelector(true)
   // eslint-disable-next-line no-undef
   const path = await eel.get_file_path()()
 
   store.setSourceFile(props.index, path)
+  store.setUsingFileSelector(false)
 }
 
 const removeSource = () => {
@@ -62,6 +64,7 @@ const removeSource = () => {
             value="Select file"
             :tabindex="1"
             required
+            :disabled="usingFileSelector"
             @click="getFilePath"
           />
           <input

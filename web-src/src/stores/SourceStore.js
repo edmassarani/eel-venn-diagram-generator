@@ -11,6 +11,7 @@ export const useSourceStore = defineStore('sources', {
     maxCount: 6,
     step: 0,
     loading: false,
+    usingFileSelector: false,
   }),
 
   getters: {
@@ -60,6 +61,10 @@ export const useSourceStore = defineStore('sources', {
 
     setDestinationPath(path) {
       this.destinationPath = path
+    },
+
+    setUsingFileSelector(bool) {
+      this.usingFileSelector = bool
     },
 
     advanceStep() {
