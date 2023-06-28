@@ -2,7 +2,7 @@ print('Loading libraries...')
 
 import eel
 from tkinter import filedialog
-from tkinter import *
+from tkinter import Tk
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib_venn import venn3, venn2
